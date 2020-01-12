@@ -1,0 +1,135 @@
+---
+title: "VIGNETTE"
+author: "Jacqueline R.M.A. Maasch"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{sanzo_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+# ```sanzo``` | *Color Palettes Based on the Works of Sanzo Wada*
+
+An R package by JRMA Maasch (2019).
+
+This vignette is intended to share function documentation and code for several different use cases. Find further information and suggested uses at https://github.com/jmaasch/sanzo.
+
+## Load package
+
+```{r install, warning = FALSE, error = FALSE, eval = FALSE}
+
+# Install development version of package, if needed.
+devtools::install_github("jmaasch/sanzo")
+
+```
+
+```{r load, warning = FALSE, error = FALSE}
+
+# Load package.
+library(sanzo)
+
+```
+
+## Functions.
+* ```sanzo.duo(palette_name)``` : return duo palette
+* ```sanzo.trio(palette_name)``` : return trio palette
+* ```sanzo.quad(palette_name)``` : return quad palette
+* ```sanzo.demo2()``` : print demo plots for all duo palettes
+* ```sanzo.demo3()``` : print demo plots for all trio palettes
+* ```sanzo.demo4()``` : print demo plots for all quad palettes
+* ```sanzo.demo.all()``` : print demo plots for all palettes
+* ```sanzo.info2()``` : return data frame of hexadecimals and urls for all duo palettes
+* ```sanzo.info3()``` : return data frame of hexadecimals and urls for all trio palettes
+* ```sanzo.info4()``` : return data frame of hexadecimals and urls for all quad palettes
+* ```sanzo.info.all()``` : return data frame of hexadecimals and urls for all palettes
+
+## View function documentation.
+
+Precede any function by a question mark to access description, arguments, return value, and usage suggestions.
+
+```{r doc}
+
+# Examples:
+?sanzo.info2()
+?sanzo.trio()
+
+```
+
+## View metadata for all duos, trios, and quads.
+
+To quickly access palette names:
+
+```{r names}
+
+names(duos)
+names(trios)
+names(quads)
+
+```
+
+The following functions return a data frame containing long-form names, short-form IDs, hexadecimal values, and links to Dain M. Blodorn Kim's https://sanzo-wada.dmbk.io for further palette information.
+
+```{r info}
+
+knitr::kable(sanzo.info2())
+knitr::kable(sanzo.info3())
+knitr::kable(sanzo.info4())
+
+```
+
+
+## View palette demos.
+
+To illustrate their potential, each color combination can be demo'd via base R scatter and bar plots. 
+
+For easier viewing, try gridding up (**NOTE** -- this will alter ```par``` settings):
+
+```{r grid, eval = FALSE}
+
+# Set up gridded layout, if desired:
+graphics::layout(matrix(1:4, nrow = 2))
+graphics::par(mar = c(2, 2, 2, 2))
+
+# Print demo plots for duos.
+sanzo.demo2()
+
+# Print demo plots for trios.
+sanzo.demo3()
+
+# Print demo plots for quads.
+sanzo.demo4()
+
+# Print demo plots for all palettes.
+sanzo.demo.all()
+
+```
+
+The output of ```sanzo.demo2()```, ```sanzo.demo3()```, ```sanzo.demo4()```, and ```sanzo.demo.all()``` can be previewed at https://github.com/jmaasch/sanzo.
+
+## Use with ```ggplot2```.
+
+View examples of use with ```ggplot2``` at https://github.com/jmaasch/sanzo.
+
+## Use with base R.
+
+These examples use data from the ```datasets``` package and should be replicable.
+
+### Scatter plot.
+
+```{r base}
+
+graphics::plot(iris$Sepal.Width, iris$Petal.Width, pch = 18:20,
+               main = "Combination 121", ylab = "", xlab = "", 
+               col = sanzo.trio("c121") [unclass(iris$Species)])
+
+```
+
+### Bar plot.
+
+```{r base2}
+
+graphics::barplot(BOD$demand, col = sanzo.trio("c239"), 
+                  main = "Combination 239", ylim = c(0, 20), border = NA)
+
+```
